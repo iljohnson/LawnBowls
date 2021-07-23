@@ -1,4 +1,4 @@
-# LawnBowls
+# Lawn Bowls Round Robin Tournament Draw
 
 A python tool to produce in excel a random Lawns Bowls draw, given a number of teams and number of rounds. 
 
