@@ -11,3 +11,5 @@ The round robin and rink allocation are shuffled in each run of the tool so no t
 The tournament draw provides points (win = 10, draw =5 and loss = 0), total for and against totals and percentage based on total win/loss.
 
 The points and percentage are used to automatically calcualte the tournament standings/result.
+
+A GUI has been added to the python version and the executable version.
