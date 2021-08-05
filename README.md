@@ -1,4 +1,4 @@
-# Lawn Bowls Round Robin Tournament Draw
+# Lawn Bowls Round Robin Tournament Draw Software
 
 A python and windows tool which produces a Lawns Bowls draw given a number of teams and number of rounds. The draw is then exported by the tool to an Excel workbook. 
 
