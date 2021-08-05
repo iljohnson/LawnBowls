@@ -1,6 +1,6 @@
 # Lawn Bowls Round Robin Tournament Draw
 
-A python tool which produces a Lawns Bowls draw given a number of teams and number of rounds. The draw is then exported by the tool to an Excel workbook. 
+A python and windows tool which produces a Lawns Bowls draw given a number of teams and number of rounds. The draw is then exported by the tool to an Excel workbook. 
 
 The draw is based on a round robin format and best fit of teams to rinks across the rounds. 
 
