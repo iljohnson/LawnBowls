@@ -8,6 +8,8 @@ from openpyxl.formatting import rule
 from openpyxl.formatting.rule import ColorScaleRule, CellIsRule, FormulaRule, FormatObject
 from openpyxl.workbook import protection
 import string
+import os.path
+
 
 desired_width = 320
 np.set_printoptions(linewidth=desired_width)
@@ -17,7 +19,6 @@ np.set_printoptions(linewidth=desired_width)
 team_num = 32
 rnds = 4
 rinks = 0
-teams = []
 games = np.empty(1, dtype=np.int64)
 grid = np.empty(1, dtype=np.int64)
 my_count = 0
@@ -36,6 +37,15 @@ a = np.empty(1,dtype=np.int64)
 
 # -------------------------------- Module Functions ---------------------------------- #
 
+if os.path.exists(os.path.expanduser("~\OneDrive")):
+    save_path = os.path.expanduser("~\OneDrive\Desktop")
+else:
+    save_path = os.path.expanduser("~\Desktop")
+
+
+# print(save_path)
+
+# ------------------------------------------------------------------------------------ #
 
 def my_fixture(no_of_teams):
 
@@ -61,6 +71,7 @@ def my_fixture(no_of_teams):
 
 def reshape():
     global games
+    teams=[]
     teams_r = range(0, team_num)
     for t in teams_r:
         teams.append(teams_r[t]+1)
@@ -100,9 +111,10 @@ def solve(level=0):
     my_count = my_count + 1
 
     if my_count > 1000000:
-        print("There appears to be no solution, try a smaller number of rounds")
+        # print("There appears to be no solution, try a smaller number of rounds")
         # print(np.array(grid))
-        return
+        #  return exit()
+        raise ValueError("Could not find a solution in 1 million interations - reduce the number of rounds and try again")
     # print(my_count)
     for y in range(0, rnds):  # cycle through the number of rounds
         # print("Thinking!!!!")
@@ -133,12 +145,10 @@ def solve(level=0):
     np.save(my_file, cv)
     my_file.close()
     # print(np.array(grid), file=filename)
-    print(cv)
+    # print(cv)
     # input("More?")
     arrange_export()
-
-    exit()
-
+    # exit()
 
 # ---------------------------------------------------------------------------------------------- #
 
@@ -235,14 +245,14 @@ def add_header_export_draw():
     # final_draw = np.append(header, init_update, axis=0)  # DOESNT add header due to mix of dtypes
     my_name = 'No of Teams ' + str(team_num) + ' - ' + 'No of Rnds ' + str(rnds)
     df = pd.DataFrame(final_draw)
-    df.to_excel('output_data.xlsx', sheet_name=my_name, startcol=0, startrow=1, index=False, header=False)
+    df.to_excel(f'{save_path}\output_data.xlsx', sheet_name=my_name, startcol=0, startrow=1, index=False, header=False)
     return final_draw
 
 # ---------------------------------------- Calculate column positions for "FOR" ------------------------------ #
 
 
 def excel_stuff():
-    wb = load_workbook('output_data.xlsx')
+    wb = load_workbook(f'{save_path}\output_data.xlsx')
     # wb._named_styles['Normal'].number_format = '#,##0.00'
     sheet = wb['No of Teams ' + str(team_num) + ' - ' + 'No of Rnds ' + str(rnds)]
 
@@ -384,7 +394,7 @@ def excel_stuff():
         sheet[f'{full_alpha[(rnds*4)+3]}{w}'] = f'= SUM({final_array_a})'
         sheet[f'{full_alpha[(rnds*4)+3]}{w}'].alignment  = Alignment(horizontal='center', vertical='center')
 
-# this is the area to make the points formula ---------------------------------------------------#
+    # this is the area to make the points formula ---------------------------------------------------#
     for w in range(2, team_num + 2):
         points_array = []
         for z in range(3, (rnds*4) + 1, 4):
@@ -420,11 +430,10 @@ def excel_stuff():
         sheet[cell_pos].style = my_header_sty
         sheet.column_dimensions [my_ary_header[t]].width = len(head_slice) + 3
 
-
     for x in range (1, max_column): # format draw info in excel (not teams, header or results)
         # print(full_alpha[x])
         for y in range (2, team_num+ 2):
-            #print(y)
+            #  print(y)
             sheet[full_alpha[x]+str(y)].alignment  = Alignment(horizontal='center', vertical='center')
 
 
@@ -489,13 +498,15 @@ def excel_stuff():
     # -------------------------------- Set the conditional formatting for the points column -------------- #
     sheet.conditional_formatting.add(f'{full_alpha[(rnds*4)+1]}{2}:{full_alpha[(rnds*4)+1]}{team_num+1}',
                                      ColorScaleRule(start_type='min',start_color='00FFFFFF', end_type='max',
-                                                            end_color='00FFD500'))
+                                                    end_color='00FFD500'))
     # ------------------------------- Set the conditional formatting for the standings column ------------ #
     sheet.conditional_formatting.add(f'{full_alpha[(rnds*4)+5]}{2}:{full_alpha[(rnds*4)+5]}{team_num+1}',
                                      ColorScaleRule(start_type='min',start_color='00FFD500', end_type='max',
                                                     end_color='00FFFFFF'))
+    wb.save(f'{save_path}\output_data.xlsx')
 
-    return wb.save('output_data.xlsx')
+
+    return
 
 
 # ------------------------------------------------------------------------------------------------------- #
@@ -512,6 +523,8 @@ def arrange_export():
     header = make_header()
     add_header_export_draw()
     excel_stuff()
+
+    quit()
     return
 # -------------------------------------------------------------------------------------------------------------- #
 
