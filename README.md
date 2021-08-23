@@ -16,3 +16,6 @@ A GUI has been added to the python version and the executable version.
 
 ![image](https://user-images.githubusercontent.com/59402257/130415002-485769fc-9aeb-4d6c-8d71-6941627a3ecf.png)
 
+![image](https://user-images.githubusercontent.com/59402257/130415237-8d0c85a9-876d-49c1-87c6-3ba0ff5505b2.png)
+
+
