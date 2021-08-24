@@ -4,11 +4,11 @@ A python and windows tool which produces a Lawns Bowls draw given a number of te
 
 The draw is based on a round robin format and best fit of teams to rinks across the rounds. 
 
-The rules are no one team plays on the same rink twice and the same two teams cannot paly against each other more than once.
+The rules are that no one team plays on the same rink twice and the same two teams cannot play against each other more than once.
 
-The round robin and rink allocation are shuffled in each run of the tool so no two outputs are the same.
+The round robin and rink allocations are shuffled in each run of the tool so no two outputs (draws) are the same.
 
-The tournament draw provides selectable points (win = 10, draw = 5 and loss = 0 or win = 10, draw = 4 and loss = 0), total for and against totals and percentage based on total win/loss. You can also select to add another column for each game so that you can enter the number of ends won which will add to points score (1 point for each end won).
+The tournament draw provides selectable points (win = 10, draw = 5 and loss = 0 or win = 10, draw = 4 and loss = 0), totals for and against totals and percentage based on total win/loss. You can also select to add another column for each game so that you can enter the number of ends won which will add to points score (1 point for each end won).
 
 The points, percentage anbd ends won if selected, are used to automatically calcualte the tournament standings/result.
 
